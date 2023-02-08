@@ -3,15 +3,16 @@ from .models import Student
 from .serializers import StudentSerializer
 from rest_framework.renderers import JSONRenderer
 from django.http import HttpResponse, JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+
 
 # Create your views here.
-def student_detail(request, pk):
-    stu = Student.objects.get(id=pk)
-    #print(stu)
-    serializer = StudentSerializer(stu)
-    #print(serializer)
-    #print(serializer.data)
-    #json_data = JSONRenderer().render(serializer.data)
-    #print(json_data)
-    #return HttpResponse(json_data, content_type='application/json')
-    return JsonResponse(serializer.data, safe=False)
+@api_view(['GET', 'POST'])
+def hello_world(request):
+    if request.method == 'GET':
+        return Response({'msg':'this is get request'})
+
+    if request.method == 'POST':
+        print(request.data)
+        return Response({'msg':'this is post request','data':request.data})

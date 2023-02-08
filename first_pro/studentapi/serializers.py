@@ -1,6 +1,9 @@
 from rest_framework import serializers
+from .models import Student
 
-class StudentSerializer(serializers.Serializer):
-    roll = serializers.IntegerField()
-    name = serializers.CharField(max_length=80)
-    city = serializers.CharField(max_length=50)
+class StudentSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Student
+            fields = '__all__'
+
+    
